@@ -1,0 +1,47 @@
+<head>
+  <meta charset="utf-8">
+  <style>
+    label {
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+  <label>
+    <input type="checkbox" id="d1">
+    <span>Đèn 1</span>
+  </label>
+
+  <label>
+    <input type="checkbox" id="d2">
+    <span>Đèn 2</span>
+  </label>
+
+  <label>
+    <input type="checkbox" id="d3">
+    <span>Đèn 3</span>
+  </label>
+
+  <label>
+    <input type="checkbox" id="d4">
+    <span>Đèn 4</span>
+  </label>
+
+  <script>
+    let ws = new WebSocket("ws://192.168.1.118:81");
+    ws.onopen = () => ws.send("Hello");
+    ws.onmessage = (e) => console.log(e);
+
+    let d = document;
+    let btns = d.getElementsByTagName("input");
+
+    for (let btn of btns) {
+      btn.addEventListener("change", (e) => {
+        let tg = e.target;
+        let state = tg.checked;
+        ws.send(`${tg.id}_${+state}`);
+      });
+    }
+  </script>
+</body>

@@ -1,0 +1,42 @@
+
+[[Khả năng của ESP]]
+I. Kết nối vào mạng wifi hoặc phát wifi.
+II. Hỗ trợ mở Server hoặc kết nối vào Server khác.
+III. Hỗ trợ TCP/IP, HTTP(s), Websocket.
+
+[*] Một số lưu ý
+1. Chỉ có thể kết nối vào 1 mạng wifi trong 1 thời điểm.
+2. Nếu dùng phát wifi thì chỉ tối đa 4 máy kết nối vào được "mạng wifi" (Này có thể cài đặt lại, nhưng không khuyến khích).
+3. Có thể tạo ~ vô số socket để kết nối ra bên ngoài, hoặc mở vô số Server phục vụ trên ESP.
+(Socket là đại diện cho một kết nối TCP/IP)
+4. Dùng TCP/IP hoặc Websocket sẽ tối ưu và đạt tốc độ, độ ổn định cao hơn HTTP(s) rất nhiều. Nên chỉ nên dùng HTTP(s) để kết nối đến các máy chủ online trên internet, hay tạo trang giao diện cơ bản để tương tác với ESP. Nếu cần gửi nhận thông điệp điều khiển, dữ liệu cảm biến... giữa các thiết bị trên hệ thống nội bộ với nhau thì nên dùng TCP/IP hoặc Websocket.
+
+--------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------
+
+/*************************************************
+ *             Danh mục bài hướng dẫn            *
+ *************************************************/
+
+1. ESP Station - Client
+
+2. ESP Station - Server
+
+3. ESP Station - Client + Server
+
+--------------------------------------------------
+
+4. ESP Access Point - Client
+
+5. ESP Access Point - Server
+
+6. ESP Access Point - Client + Server
+
+--------------------------------------------------
+
+7. ESP Access Point + Station - Client
+
+8. ESP Access Point + Station - Server
+
+9. ESP Access Point + Station - Client + Server
