@@ -1,0 +1,24 @@
+#include <BH1750.h>
+#include <Wire.h>
+
+BH1750 lightMeter(0x5c);
+
+#define SDA D2
+#define SCL D1
+void setup() {
+  Serial.begin(115200);
+  Serial.setDebugOutput(true);
+  Wire.begin(SDA, SCL);
+
+  lightMeter.begin(BH1750::CONTINUOUS_HIGH_RES_MODE);
+  lightMeter.configure(BH1750::CONTINUOUS_HIGH_RES_MODE);
+  Serial.println("Running…");
+  delay(100);
+}
+
+void loop() {
+  uint16_t lux = lightMeter.readLightLevel(); // Get Lux value
+  Serial.printf("Light: %d lux\r\n", lux);
+  delay(1000);
+}
+

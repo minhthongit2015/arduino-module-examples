@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\thongnmtran\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",
+                "C:\\Users\\thongnmtran\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\**",
+                "${workspaceFolder}/**",
+                "${env:USERPROFILE}/AppData/Local/Arduino15/packages/esp8266/tools/**",
+                "${env:USERPROFILE}/AppData/Local/Arduino15/packages/esp8266/hardware/esp8266/2.5.2/**",
+                "${env:USERPROFILE}/Documents/Arduino/libraries/**",
+                "${env:USERPROFILE}/Documents/Arduino/hardware/**",
+                "${env:ProgramFiles(x86)}/Arduino/hardware/**",
+                "${env:ProgramFiles(x86)}/Arduino/libraries/**",
+                "C:/Users/thongnmtran/Documents/Arduino/libraries/BH1750FVI/src",
+                "C:/Users/thongnmtran/Documents/Arduino/libraries/BH1750"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "forcedInclude": [],
+            "cStandard": "c11",
+            "cppStandard": "c++11"
+        }
+    ],
+    "version": 4
+}

@@ -5,24 +5,29 @@
  *Compatible with the Arduino IDE 1.0
  *Library version:1.1
  */
-#include <Wire.h> 
+#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <string.h>
 
 LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x20 for a 16 chars and 2 line display
-LiquidCrystal_I2C lcd2(0x27,16,2);  // 
+
+#define SCL 5
+#define SDA 4
 
 void i2cScanner();
+void scrollText(int row, String message, int delayTime, int lcdColumns);
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
+  Serial.setDebugOutput(true);
   Serial.println("Hello!");
 
   // LCD scan
   i2cScanner();
 
   // LCD 20x4
-  lcd.begin();
+  lcd.init();
   lcd.backlight(); delay(1000);
   lcd.noBacklight(); delay(1000);
   lcd.backlight();
@@ -31,37 +36,27 @@ void setup()
   lcd.print("Hello!");
   lcd.cursor();
   lcd.blink();
-
-  // LCD 16x2
-  lcd2.begin();
-  lcd2.backlight(); delay(500);
-  lcd2.noBacklight(); delay(500);
-  lcd2.backlight();
-  
-  lcd2.setCursor(0,0);
-  lcd2.print("Hello!");
-  lcd2.cursor();
-  lcd2.blink();
 }
 
 void loop()
 {
+  static int rowIndex = 0;
   if (Serial.available()) {
-    delay(100);
     lcd.clear();
-//    lcd2.clear();
+    lcd.setCursor(0, rowIndex % 4);
     while (Serial.available() > 0) {
       char c = Serial.read();
+      if (c == '\n') rowIndex++;
       if (c != '\n' && c != '\r')
         lcd.write(c);
-      Serial.print(c);
     }
   }
 }
 
 void i2cScanner()
 {
-  Wire.begin();
+  Serial.println("Start scanning I2C...");
+  Wire.begin(SDA, SCL);
   byte error, address;
   for(address = 1; address < 127; address++) {
     Wire.beginTransmission(address);
@@ -71,11 +66,23 @@ void i2cScanner()
       if (address < 16) Serial.print("0");
       Serial.print(address,HEX);
       Serial.println("  !");
-    }  else if (error==4) {
+    } else if (error == 4) {
       Serial.print("Unknown error at address 0x");
       if (address < 16) Serial.print("0");
       Serial.println(address,HEX);
     }
   }
+  Serial.println("Scanning I2C done!");
 }
 
+void scrollText(int row, String message, int delayTime, int lcdColumns) {
+  for (int i=0; i < lcdColumns; i++) {
+    message = " " + message;  
+  } 
+  message = message + " "; 
+  for (int pos = 0; pos < message.length(); pos++) {
+    lcd.setCursor(0, row);
+    lcd.print(message.substring(pos, pos + lcdColumns));
+    delay(delayTime);
+  }
+}
